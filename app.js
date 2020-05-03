@@ -17,7 +17,8 @@ yargs.command({
     },
   },
   handler(argv) {
-    console.log('test');
     notes.addNote(argv.title, argv.body);
   },
 });
+
+console.log(yargs.argv);

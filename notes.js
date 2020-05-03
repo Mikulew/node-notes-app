@@ -4,9 +4,8 @@ const chalk = require('chalk');
 const getNotes = () => 'Your notes...';
 
 const addNote = (title, body) => {
-  console.log('hovno');
   const notes = loadNotes();
-  const duplicateNotes = checkDuplicateNotes(notes);
+  const duplicateNotes = checkDuplicateNotes(notes, title);
   if (duplicateNotes.length === 0) {
     notes.push({ title, body });
     saveNotes(notes);
@@ -23,7 +22,7 @@ const saveNotes = notes => {
 
 const loadNotes = () => {
   try {
-    const dataBuffer = fs.readFileSyncs('notes.json');
+    const dataBuffer = fs.readFileSync('notes.json');
     const dataJSON = dataBuffer.toString();
     return JSON.parse(dataJSON);
   } catch (e) {
@@ -31,6 +30,7 @@ const loadNotes = () => {
   }
 };
 
-const checkDuplicateNotes = notes => notes.filter(note => note.title === title);
+const checkDuplicateNotes = (notes, title) =>
+  notes.filter(note => note.title === title);
 
 module.exports = { getNotes, addNote };
